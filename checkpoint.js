@@ -72,7 +72,7 @@ function sumaTodosPrimos(array) {
             arrayEnteros.push(array[i]); //Agrego el item al array
         }
     }
-    // return true;
+     return true;
 
     var suma = 0;
     for (var i = 0; i < arrayEnteros.length; i++) {//Recorro mi item de primos
