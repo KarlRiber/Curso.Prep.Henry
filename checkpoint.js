@@ -11,7 +11,10 @@ function mayorMenor(numeros) {
   // y 2 es el número más chico (menor) dentro del arreglo [9, 17, 6, 2, 4]
 
   // Tu código aca:
-
+  var maximo = Math.max(...numeros);
+  var minimo = Math.min(...numeros);
+  var myArreglo = [minimo, maximo];
+  return myArreglo;
 }
 
 function mismaCantidadCaracteres(strings, caracteres) {
@@ -23,6 +26,7 @@ function mismaCantidadCaracteres(strings, caracteres) {
   // mismaCantidadCaracteres(['javascript', 'pedro', 'amigo', 'parque'], 5) debe retornar ['pedro', 'amigo']
 
   // Tu código aca:
+  return strings.filter(string => string.length === caracteres);
 
 }
 
@@ -36,6 +40,46 @@ function sumaTodosPrimos(array) {
   // Nota: Podes usar la funcion 'esPrimo' resuelta en la homework JSII.
 
   // Tu código aca:
+  /*var suma = 0;
+ 
+ if( array < 2) return false;
+ if(array === 2) return true;
+
+  for(var i = 2; i < array; i++)
+  {
+      
+      if(array % i === 0){
+        return false;
+      }
+    } 
+
+    if(array === true){
+
+      for(var i = 0; i < array.length; i++){
+      
+        //suma += array[i];
+        suma = suma + array[i];
+      }
+    }
+
+      return suma;*/
+
+    if (array < 2) return false;
+    if (array === 2) return true;
+    var arrayEnteros = []; //Inicializo un array donde metere todos los primos
+    for (var i = 2; i < array.length; i++) {//Accedemos a la posicion 0 del array y recorremos cada item con array.length
+        if (array[i] % 2 === 0) { // Validamos si es primo, por que su resto debe ser 0
+            arrayEnteros.push(array[i]); //Agrego el item al array
+        }
+    }
+    // return true;
+
+    var suma = 0;
+    for (var i = 0; i < arrayEnteros.length; i++) {//Recorro mi item de primos
+        suma = suma + arrayEnteros[i]; //hago mi sumatoria
+    }
+
+    return suma;//regreso todas las sumas
 
 }
 
@@ -54,6 +98,44 @@ function sumArray(array, n) {
   // por lo tanto también debería devolver false en este caso
 
   // Tu código aca:
+  /*
+  const sumArray = (array,n) => {
+  const size = array.length;
+
+  for(var i = 0; i < size; i++) {
+  const a = array[i];
+
+  for(var j = 0; j < size; j++) {
+  if(i === j) continue;
+  const b = array[j];
+  if(a + b === n) return true;
+  }
+  }
+  return false;
+  };
+  console.log(sumArray([2, 5, 7, 10, 11, 15, 20], 13));*/
+
+  const sumArray = (array, numero) => {
+  if (!Array.isArray(array)) return false;
+
+  const size = array.length;
+
+  for (let i = 0; i < size; i++) {
+    const a = array[i];
+
+    for (let j = 0; j < size; j++) {
+      if (i === j || isNaN(a)) continue;
+
+      const b = array[j];
+      if (a + b === numero) return true;
+    }
+  }
+
+  return false;
+};
+
+console.log( sumArray([-2, 5, 7, 10, 23, 10, 25], 13 ) );
+
 
 };
 
@@ -68,7 +150,30 @@ function agregaPropiedad(amigos, propiedad) {
   // var amigos = [{ nombre: 'toni' } , { nombre: 'Emi', edad: 25 }];
   // agregaPropiedad(amigos, 'edad') debe devolver [{ nombre: 'toni', edad: null } , { nombre: 'Emi', edad: 25 }]
 
+  amigos.forEach(function (item) {
+    if (!item.hasOwnProperty(propiedad)) {
+        item[propiedad] = null; 
+    }
+  })
+  
+  return amigos;
 }
+/*
+let amigos = [
+    {
+    name: 'Toni'
+  }, 
+  {
+    name: 'Emi',
+    edad: 25
+  }
+];
+
+let amigosModificado = addProperty(amigos, 'edad');
+
+console.log(amigosModificado);*/
+
+
 
 // =======================================================================
 
@@ -79,6 +184,10 @@ function crearClaseViajero() {
       // Inicializar las propiedades del viajero con los valores recibidos como argumento
 
       // Tu código aca:
+      this.nombre = nombre;
+      this.edad = edad;
+      this.paises = paises;
+      this.compañeros = compañeros; 
 
     }
 
@@ -89,6 +198,8 @@ function crearClaseViajero() {
       // No debe retornar nada.
 
       // Tu código aca:
+      let compañero = {nombre, nacionalidad, edad}
+      this.compañeros.push(compañero);
 
     }
 
@@ -97,6 +208,7 @@ function crearClaseViajero() {
       // No debe retornar nada.
 
       // Tu código aca:
+      this.paises.push(pais);
 
     }
 
@@ -108,6 +220,9 @@ function crearClaseViajero() {
       // viajero.getCompañeros() debería devolver ['John', 'Peter']
 
       // Tu código aca:
+      const transformarObjetoAmigoANombre = ((amigo) => amigo.nombre);
+      const indexed = this.compañeros.map(transformarObjetoAmigoANombre);
+      return indexed;
       
     }
 
@@ -117,6 +232,7 @@ function crearClaseViajero() {
       // viajero.getPaises() debe devolver ['Belgica', 'Estados Unidos', 'Islandia']
 
       // Tu código aca:
+      return this.paises;
       
     }
 
@@ -138,6 +254,7 @@ function crearClaseViajero() {
       // viajero.getPromedioEdad() debería devolver 25 ya que (27 + 23) / 2 = 25
 
       // Tu código aca:
+      return this.compañeros.map(amigo => amigo.edad).reduce((a, b) => a + b) / this.compañeros.length;
 
     }
   };
@@ -169,6 +286,42 @@ function filtrar(funcion) {
   // productos.filtrar(function(p) {
   //   return p.price >= 50;
   // }) => [{price: 100, name:'tv'}]
+
+  var productos = [{
+  price: 100,
+  name: 'tv'
+}, {
+  price: 50,
+  name: 'phone'
+}, {
+  price: 30,
+  name: 'lamp'
+}];
+
+// Definir el método antes de ejecutar
+Array.prototype.filtrar = function(cb) {
+  // Crear el arreglo que se va a devolver
+  let newArray = [];
+  // Recorrer elementos actuales
+  this.forEach(item => {
+      // Analizar el resultado de la función de retorno o "callback"
+      if(cb(item)) {
+          // Si devuelve verdadero, agregar elemento
+          newArray.push(item);
+      }
+  });
+  // Devolver arreglo filtrado
+  return newArray;
+};
+
+// Ejecutar método de filtro proporcionando función de retorno o "callback"
+let filtrado = productos.filtrar(function(p) {
+  // Incluir solo productos que cumplen esta condición
+  return p.price >= 50;
+});
+
+// Mostrar resultado
+console.log(filtrado);
 
 };
 
